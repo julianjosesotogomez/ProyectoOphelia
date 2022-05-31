@@ -1,0 +1,24 @@
+<table>
+  <thead>
+    <tr>
+      <th><strong>#</strong></th>
+      <th><strong>Nombre Producto</strong></th>
+      <th><strong>Descripcion</strong></th>
+      <th><strong>Precio</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pro of ListaProductos">
+      <td>
+        {{pro.id}}
+      </td>
+      <td class="text-primary">
+        <strong>{{pro.nombre}}</strong>
+      </td>
+      <td>
+        {{pro.descripcion}}
+      </td>
+      <td class="text-success"><strong>{{pro.precio}}$</strong></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,64 @@
+<div class="container">
+  <h3>Registro del cliente</h3>
+  <form [formGroup]="registroForm" (ngSubmit)="Registro()">
+    <div class="form-group row">
+      <label for="Nombre" class="col-sm-2 col-form-label">
+        Nombre:
+      </label>
+      <div class="col-sm-10">
+        <input id="Nombre" type="text" class="form-control" placeholder="Nombre"
+               formControlName="nombre"
+               [ngClass]="{'is-invalid': enviado && f.nombre.errors}"/>
+        <div *ngIf="enviado && f.nombre.errors" class="invalid-feedback">
+          <div *ngIf="f.nombre.errors.required"> EL NOMBRE ES OBLIGATORIO </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="form-group row">
+      <label for="Edad" class="col-sm-2 col-form-label">
+        Edad:
+      </label>
+      <div class="col-sm-10">
+        <input id="Edad" type="text" class="form-control" placeholder="Edad"
+               formControlName="edad"
+               [ngClass]="{'is-invalid': enviado && f.edad.errors}" />
+        <div *ngIf="enviado && f.edad.errors" class="invalid-feedback">
+          <div *ngIf="f.edad.errors.required"> LA EDAD ES OBLIGATORIA </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="form-group row">
+      <label for="Email" class="col-sm-2 col-form-label">
+        Email:
+      </label>
+      <div class="col-sm-10">
+        <input id="Email" type="text" class="form-control" placeholder="Email"
+               formControlName="email"
+               [ngClass]="{'is-invalid': enviado && f.email.errors}" />
+        <div *ngIf="enviado && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required"> EL EMAIL ES OBLIGATORIO </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="form-group row">
+      <label for="Password" class="col-sm-2 col-form-label">
+        Password:
+      </label>
+      <div class="col-sm-10">
+        <input id="Password" type="password" class="form-control" placeholder="Password"
+               formControlName="password"
+               [ngClass]="{'is-invalid': enviado && f.password.errors}" />
+        <div *ngIf="enviado && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required"> LA PASSWORD ES OBLIGATORIA </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <button class="btn btn-primary" type="submit"> GUARDAR </button>
+    </div>
+  </form>
+</div>
