@@ -24,5 +24,13 @@ export class ClienteServicio {
   {
     return this.peticion.post<Resultado>(this.url, cliente);
   }
+
+  ModificarCliente(cliente: Cliente): Observable<Resultado> {
+    return this.peticion.put<Resultado>(this.url, cliente);
+  }
+
+  EliminarCliente(email: Cliente): Observable<Resultado> {
+    return this.peticion.delete<Resultado>(this.url + email);
+  }
 }
 

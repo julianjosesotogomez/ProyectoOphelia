@@ -21,14 +21,19 @@
     <None Remove="ClientApp\src\app\cliente\cliente.component.ts" />
     <None Remove="ClientApp\src\app\incio\inicio.component.ts" />
     <None Remove="ClientApp\src\app\login\login.component.ts" />
+    <None Remove="ClientApp\src\app\modelos\authapi.ts" />
     <None Remove="ClientApp\src\app\modelos\cliente.ts" />
     <None Remove="ClientApp\src\app\modelos\resultado.ts" />
+    <None Remove="ClientApp\src\app\modelos\usuarioapi.ts" />
     <None Remove="ClientApp\src\app\producto\producto.component.ts" />
+    <None Remove="ClientApp\src\app\seguridad\autenticacion.component.ts" />
     <None Remove="ClientApp\src\app\servicios\cliente.servicios.ts" />
     <None Remove="ClientApp\src\app\servicios\producto.servicios.ts" />
+    <None Remove="ClientApp\src\app\servicios\usuarioapi.servicios.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="5.0.0-preview.8.20414.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
@@ -42,11 +47,15 @@
     <TypeScriptCompile Include="ClientApp\src\app\cliente\cliente.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\incio\inicio.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modelos\authapi.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modelos\cliente.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\modelos\resultado.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\modelos\usuarioapi.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\producto\producto.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\seguridad\autenticacion.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\servicios\cliente.servicios.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\servicios\producto.servicios.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\servicios\usuarioapi.servicios.ts" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

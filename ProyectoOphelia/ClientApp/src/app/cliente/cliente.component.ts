@@ -15,6 +15,7 @@ import { Template } from '@angular/compiler/src/render3/r3_ast';
 export class ClienteComponent {
 
   registroForm!: FormGroup;
+  eliminarForm!: FormGroup;
   enviado = false;
 
   constructor( private servicioCliente: ClienteServicio, private formBuilder: FormBuilder)
@@ -29,11 +30,15 @@ export class ClienteComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['',Validators.required]
     })
+    this.eliminarForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+    })
   }
 
   get f(): { [key: string]: AbstractControl } {
     return this.registroForm.controls;
   }
+
 
   public Registro()
   {
@@ -50,10 +55,51 @@ export class ClienteComponent {
       email: this.registroForm.controls['email'].value,
       password: this.registroForm.controls['password'].value,
     };
+
     this.servicioCliente.InsertarCliente(cliente).subscribe(res =>
     {
       if (res.error != null && res.error != '')
-        console.log(res.error);
+        console.log("Error!"+res.error);
+      else
+        console.log("Correcto!")
+    });
+
+  }
+
+  public Modificar() {
+    this.enviado = true;
+    if (this.registroForm.invalid) {
+      console.log("Inalido");
+      return;
+    }
+    console.log("Valido")
+    let cliente: Cliente =
+    {
+      nombre: this.registroForm.controls['nombre'].value,
+      edad: this.registroForm.controls['edad'].value,
+      email: this.registroForm.controls['email'].value,
+      password: this.registroForm.controls['password'].value,
+    };
+
+   
+    this.servicioCliente.ModificarCliente(cliente).subscribe(res => {
+      if (res.error != null && res.error != '')
+        console.log("Error!" + res.error);
+
+      else
+        console.log("Correcto!")
+    });
+  }
+  public Eliminar() {
+    this.enviado = true;
+    if (this.eliminarForm.invalid) {
+      console.log("Inalido");
+      return;
+    }
+    console.log("Valido")
+    this.servicioCliente.EliminarCliente(this.registroForm.controls['email'].value).subscribe(res => {
+      if (res.error != null && res.error != '')
+        console.log("Error!" + res.error);
       else
         console.log("Correcto!")
     });

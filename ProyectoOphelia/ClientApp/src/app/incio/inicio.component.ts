@@ -12,6 +12,6 @@ export class InicioComponent {
   public TiendaMultiservicio = "Tienda Multiservicio Julian";
 
   public Navegar() {
-    this.router.navigate(['/producto']);
+    this.router.navigate(['/login']);
   }
 }

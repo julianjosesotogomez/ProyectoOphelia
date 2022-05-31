@@ -20,12 +20,13 @@ namespace ProyectoOphelia.Modelos
         public virtual DbSet<LineaPedido> LineaPedidos { get; set; } = null!;
         public virtual DbSet<Pedido> Pedidos { get; set; } = null!;
         public virtual DbSet<Producto> Productos { get; set; } = null!;
+        public virtual DbSet<UsuariosApi> UsuariosApis { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                IConfigurationRoot configuration = new ConfigurationBuilder()
+                IConfigurationRoot configuration= new ConfigurationBuilder()
                     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                     .AddJsonFile("appsettings.json")
                     .Build();
@@ -38,6 +39,13 @@ namespace ProyectoOphelia.Modelos
             modelBuilder.Entity<Cliente>(entity =>
             {
                 entity.ToTable("CLIENTES");
+
+                entity.HasIndex(e => e.Email, "IX_CLIENTES")
+                    .IsUnique();
+
+                entity.Property(e => e.Edad)
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(50)
@@ -58,7 +66,7 @@ namespace ProyectoOphelia.Modelos
             {
                 entity.ToTable("LINEA_PEDIDO");
 
-                entity.Property(e => e.ImporteUnitario).HasColumnType("decimal(18, 0)");
+                entity.Property(e => e.ImporteUnitario).HasColumnType("decimal(18, 3)");
 
                 entity.HasOne(d => d.IdPedidoNavigation)
                     .WithMany(p => p.LineaPedidos)
@@ -101,6 +109,24 @@ namespace ProyectoOphelia.Modelos
                     .IsUnicode(false);
 
                 entity.Property(e => e.Precio).HasColumnType("decimal(18, 3)");
+            });
+
+            modelBuilder.Entity<UsuariosApi>(entity =>
+            {
+                entity.ToTable("USUARIOS_API");
+
+                entity.HasIndex(e => e.Email, "IX_USUARIOS_API")
+                    .IsUnique();
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaAlta).HasColumnType("datetime");
+
+                entity.Property(e => e.FechaBaja).HasColumnType("datetime");
+
+                entity.Property(e => e.Password).HasMaxLength(500);
             });
 
             OnModelCreatingPartial(modelBuilder);

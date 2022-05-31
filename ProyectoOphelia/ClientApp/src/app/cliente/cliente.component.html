@@ -8,7 +8,7 @@
       <div class="col-sm-10">
         <input id="Nombre" type="text" class="form-control" placeholder="Nombre"
                formControlName="nombre"
-               [ngClass]="{'is-invalid': enviado && f.nombre.errors}"/>
+               [ngClass]="{'is-invalid': enviado && f.nombre.errors}" />
         <div *ngIf="enviado && f.nombre.errors" class="invalid-feedback">
           <div *ngIf="f.nombre.errors.required"> EL NOMBRE ES OBLIGATORIO </div>
         </div>
@@ -58,7 +58,26 @@
     </div>
     <br />
     <div class="row">
-      <button class="btn btn-primary" type="submit"> GUARDAR </button>
+      <button class="btn btn-primary" type="submit"> REGISTRAR </button>
+      <button class="btn btn-primary" (click)="Modificar()"> MODIFICAR </button>
     </div>
   </form>
 </div>
+
+<div>
+  <h3>Eliminar cliente</h3>
+    <div class="form-group row">
+      <label for="Email" class="col-sm-2 col-form-label">
+        Email:
+      </label>
+      <div class="col-sm-10">
+        <input id="Email" type="email" class="form-control" placeholder="Email"/>
+        </div>
+      </div>
+      <br />
+    <div class="row">
+      <button class="btn btn-primary" (click)="Eliminar()"> ELIMINAR </button>
+    </div>
+</div>
+
+

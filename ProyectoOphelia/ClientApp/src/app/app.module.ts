@@ -10,8 +10,7 @@ import { InicioComponent } from './incio/inicio.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { LoginComponent } from './login/login.component';
 import { ProductoComponent } from './producto/producto.component';
-import 'sweetalert2/src/sweetalert2.scss'
-import  Swal  from 'sweetalert2/dist/sweetalert2.js'
+import { AutenticacionGuard } from './seguridad/autenticacion.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,7 @@ import  Swal  from 'sweetalert2/dist/sweetalert2.js'
       { path: 'inicio', component: InicioComponent },
       { path: 'cliente', component: ClienteComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'producto', component: ProductoComponent},
+      { path: 'producto', component: ProductoComponent, canActivate: [AutenticacionGuard]},
     ])
   ],
   providers: [],

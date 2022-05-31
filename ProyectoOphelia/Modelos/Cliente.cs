@@ -12,7 +12,7 @@ namespace ProyectoOphelia.Modelos
 
         public int Id { get; set; }
         public string Nombre { get; set; } = null!;
-        public string Edad { get; set; }
+        public string Edad { get; set; } = null!;
         public string Email { get; set; } = null!;
         public byte[] Password { get; set; } = null!;
         public DateTime FechaAlta { get; set; }
