@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthApi } from '../modelos/authapi';
 import { Resultado } from '../modelos/resultado';
+import { map } from 'rxjs/operators';
+import { UsuarioApi } from '../modelos/usuarioapi';
 
 @Injectable
   ({
@@ -11,11 +13,29 @@ import { Resultado } from '../modelos/resultado';
 
 export class UsuarioApiServicios {
   url: string = "https://localhost:44459/api/usuariosapi/";
-  constructor(private peticion: HttpClient) {
 
+  private tokenApiSubject: BehaviorSubject<string>
+
+  public get tokenApi(): string {
+    return this.tokenApiSubject.value;
   }
 
-  loginApi(autenticacion: AuthApi): Observable<Resultado> {
-    return this.peticion.post<Resultado>(this.url, autenticacion);
+  constructor(private peticion: HttpClient) {
+    this.tokenApiSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('token') || '{}'));
+  }
+
+  loginApi(autenticacion: AuthApi): Observable<Resultado>
+  {
+    //Me permite guardar el token en memoria LOCAL STORAGE
+    return this.peticion.post<Resultado>(this.url, autenticacion).pipe( 
+      map(res => {
+        if (res.error == null || res.error == '') {
+          const token: string = (res.objetoGenerico as UsuarioApi).token;
+          localStorage.setItem('token', JSON.stringify(token));
+          this.tokenApiSubject.next(token);
+        }
+        return res;
+      })
+    );
   }
 }

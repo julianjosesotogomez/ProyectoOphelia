@@ -55,7 +55,7 @@ namespace ProyectoOphelia.Servicios
                 audience: configuration["JWT:Audience"],
                 claims: _Claims,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddHours(24));
+                expires: DateTime.UtcNow.AddHours(24)); //Tiempo del TOKEN en permanecer en la aplicacion. 
 
             //Token
             var _Token = new JwtSecurityToken(_Header, _Payload);

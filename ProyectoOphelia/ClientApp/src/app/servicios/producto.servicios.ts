@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Resultado } from '../modelos/resultado';
 
@@ -13,8 +13,13 @@ export class ProductoServicio {
   constructor(private peticion: HttpClient) {
 
   }
-  ObtenerProductos(): Observable<Resultado>
+  ObtenerProductos(token: string): Observable<Resultado>
   {
-    return this.peticion.get<Resultado>(this.url);
+    var reqHeader = new HttpHeaders({
+      'Content-Type': 'applicatio/json',
+      'Authorization': 'Bearer ' + token
+    });
+
+    return this.peticion.get<Resultado>(this.url, { headers: reqHeader });
   }
 }

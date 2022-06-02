@@ -10,6 +10,13 @@ export class AutenticacionGuard implements CanActivate {
 
   }
   canActivate(rutes: ActivatedRouteSnapshot) {
+    const usuario = this.servicioCliente.usuarioLogin;
+    if (typeof usuario.email != "undefined") {
+      return true;
+    }
+    else {
+
+    }
     this.rutes.navigate(['/login']);
     return false
   }

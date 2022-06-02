@@ -22,7 +22,7 @@ namespace ProyectoOphelia.Controllers
 
         //Se utiliza de una manera temporal 
         //[HttpPost("alta")]
-        //public IActionResult AltaUsuario(AuthApi usuarioApi)
+        //public IActionResult AltaUsuario(AuthApiViewModel usuarioApi)
         //{
         //    Resultado res = new Resultado();
         //    try

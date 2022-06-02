@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { environment } from '../../environments/environment.prod';
+import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 import { AuthApi } from '../modelos/authapi';
 import { Cliente } from '../modelos/cliente';
 import { UsuarioApi } from '../modelos/usuarioapi';
@@ -14,11 +15,13 @@ import { UsuarioApiServicios } from '../servicios/usuarioapi.servicios';
 
 export class LoginComponent implements OnInit{
   usuarioApi: AuthApi;
-  loginForm: FormGroup;
+  loginForm!: FormGroup;
   enviado = false;
   token: string;
+  resultadoPeticion!: string;
 
-  constructor(private servicioLogin: UsuarioApiServicios, private formBuilder: FormBuilder)
+
+  constructor(private servicioLogin: UsuarioApiServicios, private formBuilder: FormBuilder, private servicioCliente: ClienteServicio, private router:Router )
   {
     this.usuarioApi =
     {
@@ -31,14 +34,20 @@ export class LoginComponent implements OnInit{
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
-    //API
-    this.servicioLogin.loginApi(this.usuarioApi).subscribe(res => {
-      if (res.error != null && res.error != '')
-        console.log("Error!" + res.error);
-      else
-        console.log("Correcto!")
-      this.token = (res.objetoGenerico as UsuarioApi).token;
-    });
+    //Login API
+    if (localStorage.getItem('token') == null) {
+      this.servicioLogin.loginApi(this.usuarioApi).subscribe(res => {
+        if (res.error != null && res.error != '')
+          console.log("Error!" + res.error);
+        else
+          console.log("Correcto!")
+        this.token = (res.objetoGenerico as UsuarioApi).token;
+      });
+    }
+    else {
+      this.token = this.servicioLogin.tokenApi;
+    }
+    
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -57,5 +66,13 @@ export class LoginComponent implements OnInit{
       email: this.loginForm.controls['email'].value,
       password: this.loginForm.controls['password'].value,
     };
+
+    this.servicioCliente.loginCliente(cliente, this.token).subscribe(res => {
+      if (res.error != null && res.error != '')
+        console.log("Error!" + res.error);
+      else
+        console.log("Login Correcto!");
+      this.router.navigate(['/Productos']);
+    });
   }
 }

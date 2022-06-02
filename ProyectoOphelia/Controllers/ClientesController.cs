@@ -160,13 +160,11 @@ namespace ProyectoOphelia.Controllers
             }
             catch (Exception ex)
             {
-                res.Error = "Se produjo un error al ingresar  " + ex.Message;
-                res.Texto = "Se produjo un error al ingresar.";
+                res.Error = "Se produjo un error al iniciar sesion al sistema  " + ex.ToString();
+                res.Texto = "Usuario o password incorrecta.";
                 
             }
             return Ok(res);
-
-
         }
     }
 }

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  usuarioApi:'clienteApi@gmail.com',
-  passwordApi:'87878787'
+  usuarioApi:'usuarioLogin@gmail.com',
+  passwordApi:'123456'
 };
 
 /*
